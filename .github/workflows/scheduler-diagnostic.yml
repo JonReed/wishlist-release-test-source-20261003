@@ -1,0 +1,17 @@
+name: Native scheduler diagnostic
+on:
+  schedule:
+    - cron: '7,17,27,37,47,57 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Record the actual GitHub event
+        env:
+          TRIGGER: ${{ github.event_name }}
+          ACTOR: ${{ github.actor }}
+        run: printf 'event=%s actor=%s\n' "$TRIGGER" "$ACTOR"
