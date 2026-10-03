@@ -140,3 +140,15 @@ onboarding. Production Cloudflare resources were not changed by this test.
 
 The disposable resources remain in place for the pending timer check. v1.1.1 remains a draft until
 scheduled delivery has been observed and the final repository gates pass.
+
+### Scheduler correction, 3 October 2026
+
+The unverified Cloudflare-timer experiment was removed before release. Automatic updates again use
+GitHub's native `schedule` event and the same workflow as manual updates. No additional GitHub key
+is required. The Worker configuration explicitly clears the experimental cron on the next normal
+deployment; merely omitting it would leave the old timer registered.
+
+The independent scheduler diagnostic had been disabled after only a short observation window, so
+it did not establish that GitHub's scheduler was broken. The original missing scheduled run remains
+unexplained. The corrected live test keeps the real update workflow enabled and distinguishes a
+real `schedule` event from manual dispatch. Publication still requires that live acceptance result.
