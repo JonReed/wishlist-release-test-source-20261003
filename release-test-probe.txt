@@ -1,1 +1,1 @@
-Synthetic scheduled release verification, second fixture release. No household data.
+Native GitHub scheduled release acceptance. Synthetic test data only.
