@@ -38,7 +38,7 @@ to add the update tool. Both that preparation and later updates use published re
 newer version with an older release.
 
 Complete [update connection steps 1–15](AUTOMATIC_UPDATES.md#1-open-your-wishlist-website-in-cloudflare), including
-the first manual run and app check. **Skip step 16** (the automatic schedule). Complete step 17
+the first manual run and app check. **Skip steps 16–28** (the automatic connection). Complete [step 29](AUTOMATIC_UPDATES.md#29-turn-on-failure-notifications)
 to receive failure notifications. In your repository's
 **Settings → Secrets and variables → Actions → Variables**, leave `WISHLIST_AUTO_UPDATE` absent or
 set it to `false`. The workflow must remain enabled for its manual button to work.
@@ -61,9 +61,10 @@ Open [the latest release](https://github.com/JonReed/cloudflare-family-wishlist/
 
 Open [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages) and select your
 wishlist app. Check that its website address is the one your family uses; website addresses are
-listed under **Settings → Domains & Routes** if you cannot see yours on the overview.
+listed under **Domains** if you cannot see yours on the overview. Older dashboard layouts call
+this **Settings → Domains & Routes**.
 
-Open the app's **Bindings** tab. Look for **DB**, labelled **D1 database**. That is the stored data
+Open the app's **Settings → Bindings** section (or **Bindings** tab in older layouts). Look for **DB**, labelled **D1 database**. That is the stored data
 used by this website. Follow the database link. If it is not clickable, note its displayed name,
 open [Cloudflare D1](https://dash.cloudflare.com/?to=/:account/workers/d1) and select that exact name.
 
@@ -92,7 +93,8 @@ If the workflow is absent, stop and complete the one-time setup above.
 
 #### 5. Start the update
 
-Choose **Run workflow**, select branch **main**, then press the green **Run workflow** button.
+Choose **Run workflow**, select branch **main**, leave **Automatic timer check** unchecked and
+**Cloudflare timer time** empty, then press the green **Run workflow** button.
 
 **Done when:** a new run appears in the list. This installs a newer tested release or rebuilds the
 current version for a retry. It will not downgrade newer code.
@@ -114,7 +116,7 @@ Open your usual wishlist address and sign in.
 version number; compare it with the release notes. If you installed a development version newer
 than the latest release, the tool keeps it until a newer release becomes available.
 
-GitHub's automatic schedule may be disabled after inactivity; manual runs do not require that schedule.
+Manual updates do not need a Cloudflare timer key.
 
 ## Manual updates from your computer
 
@@ -156,7 +158,7 @@ node -e "const s=JSON.parse(require('node:fs').readFileSync('.wishlist-installat
 
 Open [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages) and select your
 wishlist app by the website address your family uses. Check the **Website name** printed by the
-command against the name at the top of that Cloudflare page. Open **Bindings** and check that **DB**
+command against the name at the top of that Cloudflare page. Open **Settings → Bindings** (or the **Bindings** tab in older layouts) and check that **DB**
 points to the **Database name** printed by the command.
 
 **Done when:** both names match. Keep the terminal output for step 11. The command reads the saved
